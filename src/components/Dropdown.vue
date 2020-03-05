@@ -1,36 +1,37 @@
 <template >
   <div >
-    <div class="alert alert-danger disabled" v-bind:class="{active: sum.showAlert}" role="alert">At least one tag must be selected!</div>
-    <div class="dropdown" ref="dropdownMenu" >
-        <button v-on:click="toggleButton"> {{sum.button}} </button>
-        <div class="disabled" v-bind:class="{active: showTags}" >
-            <div>
-                <input type="checkbox" id="1" value="pirmas" v-model="checkedTags">
-                <label for="1">Tag one</label>
-            </div>
-            <div>
-                <input type="checkbox" id="2" value="antras" v-model="checkedTags">
-                <label for="2">Tag two</label>
-            </div>
+    <div class="alert alert-danger hide" v-bind:class="{active: sum.showAlert}" role="alert">At least one tag must be selected!</div>
+    <div class="dropDown" ref="dropdownMenu" >
+        <button class="btn btn-warning dropdown-toggle" v-on:click="toggleButton"> {{sum.button}} </button>
+        <div class="hide " v-bind:class="{active: showTags}" >
+     
+             <Tags :parentData="myData" @childToParent="onChildClick"/>
+             <!-- :parentData="myData" -->
         </div>
+       
     </div>
   </div>
 </template>
 
 <script>
-
+import Tags from './Tags'
 export default {
-  name: "TagsList",
-  data: function() {
+  data() {
     return {
       checkedTags: [],
       showTags: false,
       showAlert: false
     }
-    },
+  },
+  name: "Dropdown",
+  components: { Tags },
 
 
     methods: {
+        onChildClick (value) {
+          this.checkedTags = value
+          // console.log('aha')
+        },
         toggleButton: function() {
          this.showTags = !this.showTags;     
         },
@@ -74,13 +75,22 @@ export default {
 </script>
 
 <style>
-    .disabled {
+    .hide {
         display: none; 
-    }
+    } 
     .active {
         display: block;
     }
-    .dropdown {
-        max-width: 100%;
+    
+    .dropDown {
+        left: 50%;
+        transform: translate(-50%, 0);
+        top: 100px;
+        position: absolute;
     }
+    .btn-secondary {
+        background-color: blue;
+    }
+   
+    
 </style>

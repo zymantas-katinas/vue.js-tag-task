@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-      <TagsList />
+      <Dropdown />
   </div>
 </template>
 
 <script>
-import TagsList from './components/TagsList'
+import Dropdown from './components/Dropdown'
 export default {
   name: "App",
-  components: { TagsList},
+  components: { Dropdown},
 }
 </script>
 
