@@ -1,5 +1,6 @@
 <template >
   <div >
+
     <div class="alert alert-danger hide" v-bind:class="{active: sum.showAlert}" role="alert">
         At least one tag must be selected!
     </div>
@@ -7,9 +8,7 @@
     <div class="dropDown" ref="dropdownMenu" >
         <button class="btn btn-warning dropdown-toggle" v-on:click="toggleButton"> {{sum.button}} </button>
         <div class="hide " v-bind:class="{active: showTags}" >
-     
              <Tags @childToParent="onChildClick"/>
-             
         </div>
     </div>
 
@@ -17,7 +16,9 @@
 </template>
 
 <script>
+
 import Tags from './Tags'
+
 export default {
   data() {
     return {
@@ -29,32 +30,33 @@ export default {
   name: "Dropdown",
   components: { Tags },
 
-
-    methods: {
-        onChildClick (value) {
-          this.checked = value
-          console.log('dropdown')
-        },
-        toggleButton: function() {
-         this.showTags = !this.showTags;     
-        },
-        documentClick(e){
-            let el = this.$refs.dropdownMenu
-            let target = e.target
-            if ( el !== target && !el.contains(target)) {
-              this.showTags=false
-            }
-        }
-      
-    },
-    created () {
-            document.addEventListener('click', this.documentClick)
-    },
-    destroyed () {
-            document.removeEventListener('click', this.documentClick)
-    },
+  methods: {
+      // put checkedTags array from Tags to checked array
+      onChildClick (value) {
+        this.checked = value
+      },
+      // toggle active class on Tags div when dropdown button is clicked
+      toggleButton: function() {
+        this.showTags = !this.showTags;     
+      },
+      // click on screen to close dropdown
+      documentClick(e){
+          let el = this.$refs.dropdownMenu
+          let target = e.target
+          if ( el !== target && !el.contains(target)) {
+            this.showTags=false
+          }
+      }
+  },
+  created () {
+          document.addEventListener('click', this.documentClick)
+  },
+  destroyed () {
+          document.removeEventListener('click', this.documentClick)
+  },
 
   computed: {
+    //create button text with clicked tags sum
     sum() {
        if (this.checked.length == 0) {
         return {
