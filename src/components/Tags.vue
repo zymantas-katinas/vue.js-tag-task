@@ -1,29 +1,30 @@
 <template>
         <div class="tags">
-            <div class="tag">
-                <input type="checkbox" id="3" value="trecias" v-model="checked" v-on:change="emitToParent">
-                <label for="3">Tag three</label>
-            </div>
-            <div class="tag">
-                <input type="checkbox" id="4" value="ketvirtas" v-model="checked" v-on:change="emitToParent">
-                <label for="4">Tag four</label>
-            </div>
+            <Tag @childToParent="onChildClick" />
+            <Tag @childToParent="onChildClick" />
         </div>
 </template>
 
 <script>
+
+import Tag from './Tag'
 export default {
     data() {
         return {
-            checked: [],
+            checkedTags: [],
         }
     },
     name: "Tags",
+    components: { Tag },
+
     methods: {
-        emitToParent (event) {
-            this.$emit('childToParent', this.checked)
+        onChildClick (value) {
+          this.checkedTags = value,
+         this.$emit('childToParent', this.checkedTags)
+
+        }
     }
   }
-}
+
 
 </script>

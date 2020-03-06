@@ -1,15 +1,18 @@
 <template >
   <div >
-    <div class="alert alert-danger hide" v-bind:class="{active: sum.showAlert}" role="alert">At least one tag must be selected!</div>
+    <div class="alert alert-danger hide" v-bind:class="{active: sum.showAlert}" role="alert">
+        At least one tag must be selected!
+    </div>
+
     <div class="dropDown" ref="dropdownMenu" >
         <button class="btn btn-warning dropdown-toggle" v-on:click="toggleButton"> {{sum.button}} </button>
         <div class="hide " v-bind:class="{active: showTags}" >
      
-             <Tags :parentData="myData" @childToParent="onChildClick"/>
-             <!-- :parentData="myData" -->
+             <Tags @childToParent="onChildClick"/>
+             
         </div>
-       
     </div>
+
   </div>
 </template>
 
@@ -18,7 +21,7 @@ import Tags from './Tags'
 export default {
   data() {
     return {
-      checkedTags: [],
+      checked: [],
       showTags: false,
       showAlert: false
     }
@@ -29,8 +32,8 @@ export default {
 
     methods: {
         onChildClick (value) {
-          this.checkedTags = value
-          // console.log('aha')
+          this.checked = value
+          console.log('dropdown')
         },
         toggleButton: function() {
          this.showTags = !this.showTags;     
@@ -53,19 +56,19 @@ export default {
 
   computed: {
     sum() {
-       if (this.checkedTags.length == 0) {
+       if (this.checked.length == 0) {
         return {
             button: "Select Tags",
             showAlert: true
         }
-      } else if (this.checkedTags.length == 1) {
+      } else if (this.checked.length == 1) {
         return {
-            button: this.checkedTags.length + " Tag",
+            button: this.checked.length + " Tag",
              showAlert: false
         }
       } else {
         return {
-            button: this.checkedTags.length + " Tags",
+            button: this.checked.length + " Tags",
             showAlert: false
         }
       }
