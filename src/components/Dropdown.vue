@@ -1,15 +1,19 @@
 <template >
   <div >
 
-    <div class="alert alert-danger hide" v-bind:class="{active: sum.showAlert}" role="alert">
+    <div class="alert alert-danger displayNone" v-bind:class="{displayBlock: sum.showAlert}" role="alert">
         At least one tag must be selected!
     </div>
 
     <div class="dropDown" ref="dropdownMenu" >
-        <button class="btn btn-warning dropdown-toggle" v-on:click="toggleButton"> {{sum.button}} </button>
-        <div class="hide " v-bind:class="{active: showTags}" >
-             <Tags @childToParent="onChildClick"/>
-        </div>
+      <button class="btn btn-warning dropdown-toggle" v-on:click="toggleButton">
+        {{sum.text}} 
+        <span v-bind:class="{displayNone: sum.showAlert}" class ="tags-sum">{{sum.sum}}</span>
+      </button>
+
+      <div class="dropdown-items hide " v-bind:class="{active: showTags}" >
+        <Tags @childToParent="onChildClick"  />
+      </div>
     </div>
 
   </div>
@@ -24,7 +28,7 @@ export default {
     return {
       checked: [],
       showTags: false,
-      showAlert: false
+      showAlert: false,
     }
   },
   name: "Dropdown",
@@ -46,7 +50,7 @@ export default {
           if ( el !== target && !el.contains(target)) {
             this.showTags=false
           }
-      }
+      },
   },
   created () {
           document.addEventListener('click', this.documentClick)
@@ -60,17 +64,20 @@ export default {
     sum() {
        if (this.checked.length == 0) {
         return {
-            button: "Select Tags",
+            sum: '',
+            text: "Select Tags",
             showAlert: true
         }
       } else if (this.checked.length == 1) {
         return {
-            button: this.checked.length + " Tag",
+            sum: this.checked.length,
+            text: "Tag ",
              showAlert: false
         }
       } else {
         return {
-            button: this.checked.length + " Tags",
+            sum: this.checked.length,
+            text: "Tags ",
             showAlert: false
         }
       }
@@ -81,21 +88,44 @@ export default {
 
 <style>
     .hide {
-        display: none; 
+        max-height: 0;
+        overflow: hidden;
+        transition: ease-in-out 0.3s;
+        border: 0px solid #21252900;
+        opacity: 0;
     } 
     .active {
-        display: block;
+        max-height: 500px;
+        opacity: 1;
     }
-    
+    .displayNone {
+      display: none;
+    }
+    .displayBlock {
+      display: block;
+    }
     .dropDown {
         left: 50%;
         transform: translate(-50%, 0);
         top: 100px;
         position: absolute;
+        
     }
-    .btn-secondary {
-        background-color: blue;
+    .dropDown button {
+      width: 120px;
     }
-   
-    
+    .dropdown-items {
+      border: 1px solid #21252947;
+      border-radius: 5px;
+      padding: 10px;
+      
+    }
+    .tags-sum {
+      color: #ffc107;
+      background-color: #212529d8;
+      padding: 0 6px;
+      border-radius: 5px;
+      font-weight: 700;
+        font-size: 15px;
+    } 
 </style>
