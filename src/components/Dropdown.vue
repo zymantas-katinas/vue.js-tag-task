@@ -45,44 +45,44 @@ export default {
       },
       // click on screen to close dropdown
       documentClick(e){
-          let el = this.$refs.dropdownMenu
-          let target = e.target
-          if ( el !== target && !el.contains(target)) {
-            this.showTags=false
-          }
+        let el = this.$refs.dropdownMenu
+        let target = e.target
+        if ( el !== target && !el.contains(target)) {
+          this.showTags=false
+        }
       },
   },
   created () {
-          document.addEventListener('click', this.documentClick)
+    document.addEventListener('click', this.documentClick)
   },
   destroyed () {
-          document.removeEventListener('click', this.documentClick)
+    document.removeEventListener('click', this.documentClick)
   },
 
   computed: {
     //create button text with clicked tags sum
     sum() {
-       if (this.checked.length == 0) {
+      if (this.checked.length == 0) {
         return {
-            sum: '',
-            text: "Select Tags",
-            showAlert: true
-        }
+          sum: '',
+          text: "Select Tags",
+          showAlert: true
+      }
       } else if (this.checked.length == 1) {
         return {
-            sum: this.checked.length,
-            text: "Tag ",
-             showAlert: false
+          sum: this.checked.length,
+          text: "Tag ",
+          showAlert: false
         }
       } else {
         return {
-            sum: this.checked.length,
-            text: "Tags ",
-            showAlert: false
+          sum: this.checked.length,
+          text: "Tags ",
+          showAlert: false
         }
       }
     },
-}
+  }
 };
 </script>
 
@@ -108,8 +108,7 @@ export default {
         left: 50%;
         transform: translate(-50%, 0);
         top: 100px;
-        position: absolute;
-        
+        position: absolute;      
     }
     .dropDown button {
       width: 120px;
@@ -117,8 +116,7 @@ export default {
     .dropdown-items {
       border: 1px solid #21252947;
       border-radius: 5px;
-      padding: 10px;
-      
+      padding: 10px;     
     }
     .tags-sum {
       color: #ffc107;

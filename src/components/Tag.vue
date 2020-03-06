@@ -1,7 +1,6 @@
 <template>     
-    <div>
-        <div class="tag">
-
+    <div >
+        <div class="tag" > 
             <input 
                 type="checkbox"
                 v-bind:key="id" 
@@ -12,7 +11,6 @@
             <label v-bind:for="id">
                 {{title}}
             </label>
-
         </div>
         <hr>
     </div>
@@ -34,10 +32,9 @@ export default {
         // emit to Tags component checkedTag array
         emitToParent () {
             this.$emit('childToParent', this.checkedTag)
-    }
+        },
   }
 }
-
 </script>
 
 <style scoped>

@@ -4,8 +4,7 @@
                 @childToParent="onChildClick"
                 v-for="data in myJson"
                 v-bind:key="data.id"            
-                v-bind:title="data.title"
-            
+                v-bind:title="data.title"          
              />
         </div>
 </template>
